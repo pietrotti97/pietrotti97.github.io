@@ -1,0 +1,4 @@
+regina bianco 8 5
+alfiere1 nero 8 5
+alfiere2 bianco 4 4
+re nero 4 4

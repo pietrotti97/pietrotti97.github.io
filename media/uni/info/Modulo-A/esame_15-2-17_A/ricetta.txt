@@ -1,0 +1,8 @@
+Latte 750
+Uova 6
+Farina 480
+Zucchero 385
+Burro 200
+Limone 2
+AmidoMais 35
+Pinoli 25

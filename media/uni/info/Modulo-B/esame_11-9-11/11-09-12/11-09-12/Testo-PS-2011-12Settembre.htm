@@ -1,0 +1,73 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<title>FONDAMENTI DI INFORMATICA II (Prof</title>
+
+</head>
+
+<body lang=IT>
+
+<h2>FONDAMENTI DI INFORMATICA  modulo B,
+A+B, F2 <br> 12 Settembre 2011 </h2>
+<h3> (tempo 2h se scritto, 2h e 30 se al calcolatore)</h3>
+
+<h2>Esercizio (punti 20)</h2>
+
+<p  style='text-align:justify'>Un file di tipo testo <a href="vocaboli.txt">vocaboli.txt</a> contiene un elenco di parole uniche,
+una su ciascuna linea. Un secondo file binario (<a href="indice.bin">indice.bin</a>) contiene record
+composti da parola e pagina (valore intero) in cui è citata la parola. Ogni parola
+compare una sola volta nel primo file, ma può comparire più volte nel secondo.</p>
+
+<p  style='text-align:justify'>Tutte le parole sono stringhe contenenti al massimo 20 caratteri, incluso il terminatore.</p>
+
+<p  style='text-align:justify'>Si scriva un programma C <b><u>strutturato in (almeno) tre funzioni</u></b>
+dedicate rispettivamente a:</p>
+
+<ol>
+<li>
+creare un albero binario
+di ricerca T in memoria centrale, ordinato in base al campo parola, che per
+ciascuna parola letta dal primo file (<a href="vocaboli.txt">vocaboli.txt</a>), memorizza la parola e numero
+totale di pagine in cui è citata nel secondo file (<a href="indice.bin">indice.bin</a>); la funzione
+<code>funzioneA</code> riceve il puntatore al primo e al secondo file, più altri parametri a
+scelta, e restituisce un albero T;
+
+<li>accedendo a T, determinare
+qual è la parola che ha il campo intero associato maggiore (numero totale di
+pagine maggiore), ovvero la parola più citata; la <code>funzioneB</code> ha come parametri
+il puntatore all'albero T e la stringa trovata, più altri parametri a scelta, e
+restituisce il campo intero associato;
+
+<li>stampare il contenuto dell'albero
+T su un file di uscita, OUTPUT.TXT, con la stampa di una parola e campo intero
+associato su ogni linea, e restituisca il numero totale di parole; la <code>funzioneC</code>
+ha come parametri il puntatore all'albero T, il puntatore al file di uscita (più
+eventuali altri a scelta) e restituisce un intero che viene poi stampato dal
+<code>main</code>.
+
+</ol>
+
+<h3>Domanda aggiuntiva A+B (ulteriori 30'):</h3>
+
+<p>Si inseriscano le prime cinque
+parole con iniziale <code>'a'</code> in un vettore V di stringhe di dimensione 5, si ordini
+tale vettore di stringhe in ordine crescente e se ne stampi il contenuto a
+video; la <code>funzioneD</code> ha come parametri il puntatore all'albero T e il vettore di
+stringhe V (più eventuali altri a scelta) e restituisce void. Qualora nell'albero
+ci siano meno di 5 parole che iniziano col carattere <code>'a'</code>, si inseriscano nell'array
+V tutte le parole che iniziano per <code>'a'</code> e si stampino tali parole.</p>
+
+<hr>
+
+<p  style='text-align:justify'>È possibile utilizzare <b><i>librerie C</i></b> (ad esempio per le
+stringhe).</p>
+
+<p  style='text-align:justify'>Nel caso si strutturi a moduli l'applicazione qualunque <b><i>libreria
+utente</i></b> va riportata nello svolgimento.
+
+
+</body>
+
+</html>
