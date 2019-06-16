@@ -1,0 +1,80 @@
+
+
+<html>
+<head>
+<title>BiPAC 7800NL</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="stylesheet" type="text/css" href="default3.css">
+</head>
+<script type="text/javascript">
+<!--
+var harr=[[0, 400], [480, 420], [600, 520], [768, 720], [960, 790], [1024, 790]];
+var harrlen = harr.length;
+function getFitH (sh)
+{
+	for (var i = 0; i < harrlen-1; i++) {
+		if (sh <= harr[i+1][0] && sh > harr[i][0]) break;
+	}
+	var ch = harr[i][1];
+	return ch;
+}
+function init()
+{
+	var updnHeight=156;
+	var sh = 768;
+	if (typeof(screen.height) == 'number') sh = screen.height;
+	if (typeof(window.innerHeight) == 'number') {
+		// non IE
+		ch = window.innerHeight;
+	} else if (document.documentElement && document.documentElement.clientHeight) {
+		// IE 6+ in 'standards compiant mode'
+		ch = document.documentElement.clientHeight;
+	} else if (document.body && document.body.clientHeight) {
+		// IE 4 compatible
+		ch = document.body.clientHeight;
+	} else {
+		ch = getFitH(sh);
+	}
+	if (ch < harr[0][1]+updnHeight) {
+		ch = getFitH(sh)
+	}
+	ch -= updnHeight;
+}
+-->
+</script>
+</head>  
+<body class="base" onload="init();">
+<table class="basetbl" cellpadding="4" cellspacing="0" width="97%">
+<tr><td valign="top">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr><td id="idhead" class="logoleft" align="left">
+		<img class="logo1" src="logo1.gif" alt="" usemap="#logomap">
+		<map id="logomap" name="logomap"><area shape="rect" coords="35,20,147,46" href="http://www.billion.com/" target="_blank"></map>
+		</td>
+		<td class="pdname">ADSL2+ Firewall Router</td>
+		<td class="logoright" align="right"><img class="logo2" src="logo2.gif" alt="">
+		</td>
+	</tr>
+	<tr><td colspan="3">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr><td>
+			<iframe id="idmain" src="ezs_selwan.ezs" name="main" frameborder="0" width="100%" height="400"></iframe>
+		</td></tr>
+		</table>
+	</td></tr>
+	<tr><td id="idicon" class="tbliconline" colspan="3" align="right">
+		<table class="tblicon" width="40%">
+		<tr><td class="baseicon">&nbsp;</td></tr>
+		</table>
+	</td></tr>
+	<tr><td id="idinc" colspan="3" class="Inc">Copyright @ Billion Electric Co., Ltd. All rights reserved.</td></tr>
+	</table>
+</td></tr>
+</table>
+</body> 
+</html>
+
+

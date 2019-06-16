@@ -1,0 +1,20 @@
+File: SoloCFE.bin
+
+Contiene il backup del CFE Telecom dell'AGPF
+
+-------------------------------------------------------------
+
+File: Imm_CFE.bin
+
+Contiene il backup del CFE Telecom dell'AGPF e l'header Broadcom per rendere possibile il caricamento del file via "ponticello"
+
+Nota: Se la board impostata al momento del caricamento è diversa da quelle riconosciute dal CFE Telecom (96358BGWE_OEM1, DWV-S0, AGPF-S0),
+il router resterà bloccato in attesa della selezione di una board "valida" (operazione fattibile solo collegandosi al router via seriale).
+
+-------------------------------------------------------------
+
+File: Imm_CFEeRG_Factory.bin
+
+Contiene il backup del CFE Telecom e l'RG_factory con dei dati fittizzi.
+ATTENZIONE: Questa immagine sovrascrive TUTTO il contenuto della flash!
+In questa immagine è presente l'header Broadcom per rendere possibile il caricamento del file via "ponticello".

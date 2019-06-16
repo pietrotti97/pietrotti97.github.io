@@ -1,0 +1,35 @@
+Procedura per installare un firmware sul router Pirelli Vela (alias Alice W-GATE+).
+
+Procedimento:
+
+1) Smontaggio router ( 3 viti )
+2) Individuazione della porta seriale:
+	
+    presente solo sullo stampato, tra il processore in basso a sinistra e lo slot per la smartcard.
+    In particolare i segnali TX ed RX da ponticellare sono contrassegnati da R276 e R277, dal lato verso il processore.
+	
+3) Connessione di un cavo ethernet nella porta corretta:
+
+    Pirelli Vela: la porta ethernet di destra, quella piu' vicina all'alimentazione.
+    
+4) Configurre di un PC on i parametri di rete corretti: IP statico, 192.168.1.2, gateway 192.168.1.1, netmask 255.255.255.0
+5) Ponticellare i segnali TX ed RX della porta seriale tramite un pezzo di filo metallico rigido o le 2 punte di un paio di forbici.
+    
+6) Accendere il router e attendere pochi secondi
+
+    -Pirelli Vela: restano accesi tutti i led, fissi, tranne uno.
+    
+7) Togliere il ponticello.
+8) Accedere dal PC via WEB a http://192.168.1.1
+9) Flashare (come da istruzioni a video) il PSI Clear, e aspettare che il router s riavvii
+9) Accedere di nuovo all'interfaccia WEB e flashare il firmware. 
+10) Ripristinare configurazione precedente del PC, se necessario.
+
+P.S. User e password per accedere al router sono 'admin' e 'admin'
+
+ATTENZIONE!
+
+L'aggiornamento del firmware e' lungo e può impiegare anche 5 o 6 minuti per terminare.
+NON HA NESSUNA IMPORTANZA QUELLO CHE APPARE NEL BROWSER WEB (messaggi d'errore ecc. ecc.)!!!
+L'aggiornamento e' terminato solo quando il router si RIAVVIA DA SOLO!!!
+MAI e poi MAI spegnere il router prima che si sia riavviato da solo.

@@ -1,0 +1,21 @@
+This is the readme file for the TG-582n adsl modem+router.
+Two different baords revision, the only difference is the SPI:
+
+-DATNT-T: 8MB Spi (Some older Fastweb boards)
+-DANT-1: 16MB Spi (Usually Telecom Italia boards, also called AGTWI)
+
+Tools used: 
+
+-Ch341a_spi programmer
+-Uart adapter
+
+Cfe must be flashed via spi programmer, I used flashrom under linux
+
+Then, via CFE WebUI flash the OpenWRT Image.
+
+For the DANT-1 the BILLION firmware for the BPAC 7800NL is the best solution to have a perfectly working ADSL modem+router
+
+To flash the Billion FW, you must change the CFE. There is a perfectly fine cfe in the Comtrend AR-5382u Firmwre image.
+Flash first the AR image, then the Billion image
+
+NOTE: the leds does not work correctly with the BILLION fimware
