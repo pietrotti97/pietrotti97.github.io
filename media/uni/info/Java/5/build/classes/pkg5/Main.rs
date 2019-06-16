@@ -1,2 +1,0 @@
-Persona
-ProvaC1

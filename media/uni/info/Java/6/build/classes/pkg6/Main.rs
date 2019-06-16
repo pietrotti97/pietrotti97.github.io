@@ -1,3 +1,0 @@
-Comparabile
-Prova
-Bambino

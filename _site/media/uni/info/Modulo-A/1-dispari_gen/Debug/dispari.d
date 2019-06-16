@@ -1,1 +1,0 @@
-dispari.o: ../dispari.c
