@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Fondamenti di Informatica - Compito A</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1138.51">
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<h1 style="margin: 0.0px 0.0px 16.0px 0.0px; text-align: center; font: 24.0px Times"><b>Fondamenti di Informatica- Compito G1</b></h1>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; text-align: center; font: 14.0px Times"><b>Prof. Evelina Lamma</b></h3>
+<p class="p1"><br></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; text-align: center; font: 14.0px Times"><b>26 Giugno 2013</b></h3>
+<p class="p1"><br></p>
+<h2 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 18.0px Times"><b>Esercizio (punti 20)</b></h2>
+<p class="p1"><br></p>
+<p class="p5">In un file di testo  <a href="uno.txt">uno.txt</a> sono memorizzati dati riguardanti alcune persone. Ciascuna riga del file contiene:</p>
+
+<ul class="ul1">
+  <li class="li5">nome : stringa contenente al pi&ugrave; 10 caratteri, senza spazi</li>
+  <li class="li5">cognome : stringa contenente al pi&ugrave; 10 caratteri, senza spazi</li>
+   <li class="li5">reddito: intero</li>
+</ul>
+<p class="p5"> La stessa persona pu&ograve; comparire  pi&ugrave; volte nel file.</p>
+<p class="p5">Si realizzi un programma C, organizzato in almeno due funzioni, rispettivamente dedicate a:</p>
+<ol class="ol1">
+  <li class="li5">costruire una lista L in memoria centrale, ordinata sui campi cognome e nome, che riporta in ciascun nodo: cognome e nome della persona, totale dei redditi (se la persona compare pi&ugrave; volte nel file, essa compare una sola volta nella lista e il campo intero nella lista &egrave; il totale dei suoi redditi;</li>
+  <li class="li5">accedendo a L, stampare con una funzione ricorsiva, il contenuto della lista in un file di uscita  <span class="s3">output.txt</span> da consegnare con il codice sorgente</li>
+</ol>
+<p class="p1"><br></p>
+<p class="p5">Ad esempio,  se il file <a href="uno.txt">uno.txt</a> contiene:</p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td>
+			Rossi
+      </td>
+		<td>Luigi</td>
+      <td>
+		1000
+      </td>
+    </tr>
+
+    <tr>
+      <td>Rossi</td>
+		<td>Franco</td>
+      <td>
+		1300
+      </td>
+    </tr>
+
+    <tr>
+      <td>Bianchi</td>
+		<td>Franco</td>
+      <td>
+		1200
+      </td>
+    </tr>
+
+    <tr>
+      <td>Rossi</td>
+		<td>Franco</td>
+      <td>
+		600
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<p>Il file output.txt dovr&agrave; contenere
+
+<table border="1">
+  <tbody>
+    <tr>
+      <td>Bianchi</td>
+		<td>Franco</td>
+      <td>
+		1200
+      </td>
+    </tr>
+
+    <tr>
+      <td>Rossi</td>
+		<td>Franco</td>
+      <td>
+		1900
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+			Rossi
+      </td>
+		<td>Luigi</td>
+      <td>
+		1000
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Per chi svolge il compito A+B (+30 min, tot 2,5 h):</h2>
+<p class="p5">Si carichino i dati del file <a href="uno.txt">uno.txt</a> in un vettore di strutture, lo si ordini sui campi cognome e nome della persona e lo si stampi in uscita sul file <span class="s3">outputAB.txt</span>.</p>
+
+<p>I dati nel file <a href="uno.txt">uno.txt</a> sono al massimo 100.
+<p class="p1"><br></p>
+<p><b>NOTA BENE:  </b> si consegnino i sorgenti, eseguibile e i due file di uscita generati. È possibile utilizzare <b>librerie C</b> (ad esempio per le stringhe). Nel caso si strutturi a moduli l'applicazione qualunque <b>libreria utente</b> va riportata nello svolgimento.</p>
+<p class="p1"><br></p>
+</body>
+</html>

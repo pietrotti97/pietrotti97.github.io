@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+
+struct elemento
+{
+	int inf;
+	struct elemento* pun;
+};
+struct elemento* lista;
+void showlist(struct elemento*)
+{
+}
+
+int main()
+{
+
+	return 0;
+}

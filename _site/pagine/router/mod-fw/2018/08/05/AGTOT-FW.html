@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Firmware per TG789Vac-v2 | Pietrotti97 Website</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Firmware per TG789Vac-v2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl." />
+<meta property="og:description" content="Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl." />
+<link rel="canonical" href="http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html" />
+<meta property="og:url" content="http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html" />
+<meta property="og:site_name" content="Pietrotti97 Website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-05T02:00:00+02:00" />
+<script type="application/ld+json">
+{"headline":"Firmware per TG789Vac-v2","dateModified":"2018-08-05T02:00:00+02:00","datePublished":"2018-08-05T02:00:00+02:00","description":"Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html"},"@type":"BlogPosting","url":"http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Pietrotti97 Website" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Pietrotti97 Website</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Repository.html">Repository</a><a class="page-link" href="/Reserved.html">Area Riservata</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Firmware per TG789Vac-v2</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-08-05T02:00:00+02:00" itemprop="datePublished">Aug 5, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.
+<a href="/media/agtot/router.png"><img src="/media/agtot/router.png" alt="789vac Photo" style="float: right;" /></a></p>
+
+<p>Lo scopo della guida è di migliorare il router flashandolo col firmware della compagnia inglese UNO.
+Il firmware (che è solo in lingua inglese) migliora di molto la gestione del router.</p>
+
+<blockquote>
+  <p><span style="color:red"><strong>DISCLAIMER</strong></span>: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.</p>
+</blockquote>
+
+<blockquote>
+  <p><span style="color:red"><strong>NOTA</strong></span>: La procedura viene eseguita su Linux</p>
+</blockquote>
+
+<blockquote>
+  <p><span style="color:blue"><strong>Si ricorda inoltre</strong></span>: che al termine della guida sarà necessario ricavarsi dal sito del proprio gestore i parametri per riconnettersi alla vdsl o per il voip.</p>
+</blockquote>
+
+<p><strong>Procedimento:</strong></p>
+
+<ol>
+  <li>
+    <p>Installare dnsmasq tramite il proprio package manager.</p>
+  </li>
+  <li>Assegnare un Ip statico al pc, utilizzando questi parametri:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     -Ip Addr: 10.0.0.2  
+     -Netmask: 255.255.255.0  
+     -Gateway: 10.0.0.1  
+</code></pre></div>    </div>
+  </li>
+  <li>Sostituire il contenuto del file in <code class="highlighter-rouge">/etc/dnsmasq.conf</code> con il contenuto di <a href="/media/agtot/dnsmasq.conf">dnsmasq.conf</a></li>
+  <li>
+    <p>Modificare il file del nuovo dnsmasq.conf sostituendo i parametri:</p>
+
+    <p>-<code class="highlighter-rouge">Interface</code> (il nome dell’interfaccia eth con il quale si carica il firmware, lo si trova con il comando ip addr )<br />
+ -<code class="highlighter-rouge">insert:mac:modem:address:here</code> con il mac del modem</p>
+  </li>
+  <li>
+    <p>Nella cartella <code class="highlighter-rouge">/srv/tftp</code> (se non esiste creala) inserisci <a href="/media/agtot/MST-TG789vac v2 17.2.278-0901008.rbi">QUESTO</a> firmaware e rinominalo in <code class="highlighter-rouge">uno.rbi</code>.</p>
+  </li>
+  <li>
+    <p>Connettere il pc al router con un cavo ethernet, avviare dnsmasq in modalità debug ( per vedere cosa sta succedendo ) con <code class="highlighter-rouge">sudo dnsmasq -d</code></p>
+  </li>
+  <li>
+    <p>Spegnere il router e riaccenderlo in modalità bootp: premere il tasto reset da router spento, e accendere il device sempre tenendo premuto il tasto.<br />
+Aspettare che il led info lampeggi.</p>
+  </li>
+  <li>
+    <p>Ora il firmware viene automaticamente caricato e il router si riavvia a fine della procedura.<br />
+<strong>NOTA</strong>: Nel debug di dnsmasq verrà segnalato il corretto caricamento del firmware!<br />
+<strong>NOTA2</strong>: Chiudere dnsmasq con ctrl+c solo quando il router sarà avviato: led arancione acceso.</p>
+  </li>
+  <li>
+    <p>Riabilitare il dhcp nel pc.<br />
+La webui per la configurazione è all’indirizzo: 192.68.1.1
+La password per accedere alla WebUI è l’access keyscritta in basso a sinistra sull’etichetta del modem.</p>
+  </li>
+  <li><a href="/pagine/router/mod-fw/2019/02/25/AGTOT-root.html">Root del device e Custom UI</a></li>
+</ol>
+
+<blockquote>
+  <p><span style="color:red"><strong>NOTA</strong></span>: La compagnia australiana iiNet ha rilasciato il proprio firmware propietario, sembra funzionare correttamente, ed è compatibile con la dsl italiana. È scaricabile disponibile in due versioni, ed è consigliato prima installare la più vecchia (A) e poi la più nuova (B).<br />
+<a href="/media/agtot/vant-6_16.3.7637-ver2.2.1-CRF695-2721005.rbi">A</a> ; <a href="/media/agtot/vant-6_16.3.8046-ver3.0-CRF767-2721002.rbi">B</a><br />
+Per flasharlo va seguita la guida precedente, rinominando il file in iinet.rbi  ( questo passaggio è utile solo per riconoscere più facilmente il file e scriverlo senza errori nel file dnsmasq.conf sul parametro dhcp-boot!</p>
+</blockquote>
+
+<p><strong>Fine</strong></p>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/mod-fw/2018/12/05/AGTOT-FW.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = agtotfw1; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  </div><a class="u-url" href="/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Pietrotti97 Website</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Pietrotti97 Website</li><li><a class="u-email" href="mailto:pietrotti97@gmail.com">pietrotti97@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

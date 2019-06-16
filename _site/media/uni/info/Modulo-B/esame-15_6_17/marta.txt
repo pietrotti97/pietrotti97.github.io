@@ -1,0 +1,6 @@
+Riso  80
+Parmigiano  10
+Sogliola 100
+Pomodoro 200
+Olio_vegetale 15
+Kiwi   80

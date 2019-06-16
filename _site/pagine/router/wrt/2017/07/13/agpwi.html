@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>AGPWI | Pietrotti97 Website</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="AGPWI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N" />
+<meta property="og:description" content="Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N" />
+<link rel="canonical" href="http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html" />
+<meta property="og:url" content="http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html" />
+<meta property="og:site_name" content="Pietrotti97 Website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-13T00:00:00+02:00" />
+<script type="application/ld+json">
+{"headline":"AGPWI","dateModified":"2017-07-13T00:00:00+02:00","datePublished":"2017-07-13T00:00:00+02:00","description":"Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html"},"@type":"BlogPosting","url":"http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Pietrotti97 Website" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Pietrotti97 Website</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Repository.html">Repository</a><a class="page-link" href="/Reserved.html">Area Riservata</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">AGPWI</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-07-13T00:00:00+02:00" itemprop="datePublished">Jul 13, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N <img src="/media/agpwi/outer.jpg" alt="Agpwi Photo" style="float: right;" /></p>
+
+<p>Il router Telecom in questione e’ quello senza antenne esterne.
+Questo modello e’ differente da quello con le antenne esterne, ed e’ necessaria una procedura particolare per flashare openWrt.
+Il router e’ prodotto da ADB, modello della board: P.DG A4001N</p>
+
+<p>Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione, per controllare passo passo cosa sta succedendo</p>
+
+<p><strong>IMPORTANTE</strong>: Prima di procedere con la guida, è necessario scollegare il cavo del telefono.</p>
+<blockquote>
+  <p><span style="color:red"><strong>DISCLAIMER</strong></span>: dopo la modifica non sara’ piu’ possibile utilizzare la parte modem del router ( se non riportandolo stock). Non mi ritengo responsabile per eventuali router brickati.</p>
+</blockquote>
+
+<p><strong>Inzio della guida:</strong></p>
+
+<ol>
+  <li>
+    <p>Smontare il Router svitando le due viti presenti nella parte inferiore e forzarne l’apertura partendo dalla parte posteriore.</p>
+
+    <p>Se avete un convertitore uart, tanto vale stagnare i due ponticelli ( segnati in nero) in modo da rendere utilizzabile la UART.</p>
+  </li>
+  <li>
+    <p>Avviare il router in modalità bootloader:
+<a href="/media/agpwi/smontato-agpwi.jpg"><img src="/media/agpwi/smontato-agpwi.jpg" alt="Agpwi Photo" style="float: right; width:300px;" /></a></p>
+
+    <p>-Ponticellare Rx e Tx (i due contatti segnati in rosso)<br />
+ -Avviare il router dal pulsante nero posteriore<br />
+ -Staccare il ponticello tra Rx e Tx quando resta accesa una sola luce rossa.</p>
+  </li>
+  <li>Assegnare un Ip statico al pc, utilizzando questi parametri:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> -Ip Addr: 192.168.1.2  
+ -Netmask: 255.255.255.0  
+ -Gateway: 192.168.1.1  
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su <a href="192.168.1.1">192.168.1.1</a>   <img src="/media/agpwi/cfe.jpg" alt="Agpwi Photo" style="float: right;" /></p>
+
+    <p>Si aprirà la pagina per il caricamento del firmware, che dovrebbe essere simile a questa:</p>
+  </li>
+  <li>
+    <p>Caricare <a href="/media/agpwi/AGPWI_1.1.0_013.rmt.sig">QUESTO</a> firmware, e aspettare che si riavvii il router.</p>
+
+    <p>Il firmware è uno dei vecchi firmware Telecom, ha una vulnerabilità, che sfrutterò per accedere all’interfaccia avanzata del modem e abilitare Telnet.</p>
+  </li>
+  <li>
+    <p>Nel <a href="/media/agpwi/alice.html">LINK</a> Selezionare <strong>Abilita interfacca Avanzata</strong> successivamente selezionare il modello del router. Premendo su esegui si accede all’interfaccia avanzata del router. (Tool preso dal repository di ilpuntotecnicoeadsl)</p>
+  </li>
+  <li>
+    <p>Flashare ora il nuovo cfe, scaricando <a href="/media/agpwi/cfe-A4001N-V0000_96328avng.bin">QUESTO</a> file, rinominandolo in “cfe.bin”” (per comodita’) ed avviare un server ftp (io uso dnsmasq) sulla cartella di download. Per velocizzare l’operazione successiva rinominare il file scaricato in cfe.bin.</p>
+
+    <p>Sintassi del comando dnsmasq per linux: <code class="highlighter-rouge">sudo dnsmasq -d --enable-tftp --tftp-root="pwd"</code></p>
+  </li>
+  <li>Connettersi al router con telnet ( per linux: telnet 192.168.1.1); Apparirà la shell di OpenRg.<br />
+ Per loggarsi inserire:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     -Username: admin  
+     -Password: riattizzati  
+</code></pre></div>    </div>
+    <p>Digitare: <code class="highlighter-rouge">flash load -u tftp://192.168.1.2/cfe.bin -s00</code> e dare invio.<br />
+ Al termine del flash digitare: <code class="highlighter-rouge">system reboot</code> per riavviare.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><span style="color:red"><strong>NOTA:</strong></span> Da questo momento è possibile flashare qualsiasi immagine compatibile con questo router, non solo OpenWRT.</p>
+</blockquote>
+
+<p>9.Procedura per flashare OpenWRT:<br />
+        -Spegnere il Router<br />
+        -Ponticellare TX e RX del seriale e accendere il router, Si dovrebbe accendere la luce rossa.<br />
+        -Riconnettersi via web browser a 192.168.1.1 flashare <a href="/media/agpwi/cfe+wrt.bin">openWRT</a></p>
+<blockquote>
+  <p>L’immagine do openWrt linkata è la 15.05 ChaosCalmer, che contiene però anche un cfe modificato per avviarla correttamente.</p>
+</blockquote>
+
+<p>Da questo momento in poi è possibile flashare OpenWRT da cfe. Il target di OpenWRT per questo agpwi è A4001N1.</p>
+
+<blockquote>
+  <p><span style="color:red"><strong>NOTA:</strong></span> per aggiornare openWRT, se non si vuole passare attraverso cfe col metodo del ponticello, è necessario flashare le immagini direttamente dalla webUI di LuCi, è quindi necessario usare solo i pacchetti segnati con sysupgrade.</p>
+</blockquote>
+
+<p>Nel caso dovessero esserci errori durante il flash, o il router non dovesse avviarsi, è necessario avere a portata di mano un adattatore seriale-usb.<br />
+Effettuare queste operazioni:</p>
+
+<p>-Spegnere il Router<br />
+-Ponticellare TX e RX del seriale, accendere il router e aspettare che l’interfaccia web di CFE parta<br />
+-Collegare l’adattatore uart-usb al router ( baudrate 115200)<br />
+-[Per linux, usando screen il comando è: <code class="highlighter-rouge">sudo screen /dev/ttyNOMEDEVICE 115200 8N1]</code><br />
+-Leggere l’helper di CFE [digitare <code class="highlighter-rouge">help</code> e premere invio] e resettare la flash con il comando <code class="highlighter-rouge">e a</code><br />
+-Riflashare Openwrt dalla webUI di cfe con l’immagine precedentemente scaricata.</p>
+
+<p><strong>Fine</strong></p>
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/wrt/2017/07/13/agpwi.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = wrtagpwi; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  </div><a class="u-url" href="/pagine/router/wrt/2017/07/13/agpwi.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Pietrotti97 Website</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Pietrotti97 Website</li><li><a class="u-email" href="mailto:pietrotti97@gmail.com">pietrotti97@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-06-16T13:20:33+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Pietrotti97 Website</title><entry><title type="html">TD-W8970 / TD-W8980</title><link href="http://localhost:4000/pagine/router/wrt/2019/05/19/8980.html" rel="alternate" type="text/html" title="TD-W8970 / TD-W8980" /><published>2019-05-19T00:00:00+02:00</published><updated>2019-05-19T00:00:00+02:00</updated><id>http://localhost:4000/pagine/router/wrt/2019/05/19/8980</id><content type="html" xml:base="http://localhost:4000/pagine/router/wrt/2019/05/19/8980.html">&lt;p&gt;Guida al flash di openwrt su router Tp-Link TD-W8970 e TD-W8980 &lt;img src=&quot;/media/8980/outer.jpg&quot; alt=&quot;TD-W8980 Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I due router, prodotti da Tp-Link sono praticamente identici, l’unica differenza è che il 8980 ha anche il wifi a 5Ghz, mentre il 8970 non lo ha.&lt;br /&gt;
+In ogni caso, per questioni dovute a driver proprietari, dopo il flash di openwrt non sarà possibile sfruttare la banda a 5Ghz!&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ assolutamente necessario avere un adattatore seriale-usb da connettere alla board durante l’operazione.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario scollegare il cavo del telefono.  &lt;br /&gt;
+&lt;strong&gt;NOTA&lt;/strong&gt;: La procedura viene eseguita su linux.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati, pertando è consigliabile seguire alla lettera la guida e leggerla tutta prima di procedere.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Smontare il Router svitando le quattro viti presenti nella parte inferiore e forzarne l’apertura usando un plettro o qualcosa del genere, partendo dai lati. Forzando un pò l’unità dovrebbe aprirsi, e non dovrebbe rompersi nessun gancetto in plastica. In ogni caso, anche se dovessero rompersi le 4 viti tengono tutto compatto.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I connettori nella uart vanno stagnati nei 3 punti RX, TX e GND, come indicato in foto:
+Nella foto a destra il TD-W8970, in quella a sinistra il TD-W8980!
+&lt;a href=&quot;/media/8980/8970-inner.jpg&quot;&gt;&lt;img src=&quot;/media/8980/8970-inner.jpg&quot; alt=&quot;8970 uart&quot; style=&quot;float: right; width:300px;&quot; /&gt;
+&lt;a href=&quot;/media/8980/8980-inner.jpg&quot;&gt;&lt;img src=&quot;/media/8980/8980-inner.jpg&quot; alt=&quot;8980 uart&quot; style=&quot;float: right; width:200px;&quot; /&gt;&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere l’adattatore seriale-usb al pc e al modem, e usando screen leggere l’output con: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo screen /dev/ttyNOMEDEVICE 115200 8N1&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader:&lt;/p&gt;
+
+    &lt;p&gt;-Avviare il router dal pulsante nero posteriore, nella shell dovrebbero comparire delle scritte. Se non compare nulla, probabilmente avete sbagliato a connettere i pin del modem all’adattatore seriale, provate ad invertirli.&lt;br /&gt;
+ -Premere &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;  finche si arriva ad una shell&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; -Ip Addr: 192.168.1.2  
+ -Netmask: 255.255.255.0  
+ -Gateway: 192.168.1.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Digitare questi comandi nella shell seriale del router
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; setenv ipaddr 192.168.1.1
+ setenv serverip 192.168.1.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scaricare l’immagine corretta per il proprio dispositivo:&lt;br /&gt;
+&lt;a href=&quot;/media/8980/8970.bin&quot;&gt;TD-W8970&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/media/8980/8980.bin&quot;&gt;TD-W8980&lt;/a&gt;&lt;br /&gt;
+Qui carico le due immagini di OpenWrt 18.06.2 separate per i due dispositivi. In ogni caso sono scaricabili dal sito di &lt;a href=&quot;https://downloads.openwrt.org&quot;&gt;OpenWrt&lt;/a&gt;, scegliendo il target &lt;code class=&quot;highlighter-rouge&quot;&gt;lantiq/xrx200&lt;/code&gt;!&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sul pc va avviato dnsmasq nel seguente modo:&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo dnsmasq -d --enable-tftp --tftp-root=*sostituire/con/il/percorso/immagine/openwrt&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dare in sequenza questi comandi sulla shell del modem, accertandosi di non commettere errori nel trascrivere gli zeri ( pena il brick ):
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tftpboot 0x80800000 firmware-name.bin
+sf erase 0x20000 0x7a0000 
+sf write 0x80800000 0x20000 0x$(filesize)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;&lt;strong&gt;NOTA:&lt;/strong&gt; firmware-name nel primo comando è il nome del firmware, va quindi modificato in base al nome del firmware scaricato. 
+Tra un comando e l’altro accertarsi che tutto venga eseguito con successo e non ci siano errori!&lt;br /&gt;
+Se dopo l’ultimo comando la shell riporta: &lt;code class=&quot;highlighter-rouge&quot;&gt;Successfully programmed X bytes @ 0x20000&lt;/code&gt; ( X è un numero che varia in base alla dimensione del file caricato ),&lt;br /&gt;
+dare l’ultimo comando :  &lt;code class=&quot;highlighter-rouge&quot;&gt;reset&lt;/code&gt; che riavvierà il modem.
+Dovrebbe caricare OpenWrt!
+Carico qui sotto il log del mio caricamento oscurando con X i vari dati personali come il mac address:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;VR9 # setenv ipaddr 192.168.1.1
+VR9 # setenv serverip 192.168.1.2
+VR9 # tftpboot 0x80800000 wrt.bin
+8192 KiB W25Q64 at 0:3 is now current device
+MAC: XX-XX-XX-XX-XX-XX  
+Using vr9 Switch device
+TFTP from server 192.168.1.2; our IP address is 192.168.1.1
+Filename 'wrt.bin'.
+Load address: 0x80800000
+Loading: #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         #################################################################
+         ###################
+done
+Bytes transferred = 5046461 (4d00bd hex)
+VR9 # sf erase 0x20000 0x7a0000
+Erasing SPI flash...
+..........................................................................................................................
+Successfully erased 7995392 bytes @ 0x20000
+Done
+VR9 # sf write 0x80800000 0x20000 0x$(filesize)
+
+.............................................................................
+Successfully programmed 5046461 bytes @ 0x20000
+VR9 # reset
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Dopo il riavvio del modem, sempre sulla seriale, premendo invio compare:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;BusyBox v1.28.4 () built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt 18.06.2, r7676-cddd7b4c77
+ -----------------------------------------------------
+=== WARNING! =====================================
+There is no root password defined on this device!
+Use the &quot;passwd&quot; command to set up a new password
+in order to prevent unauthorized SSH logins.
+--------------------------------------------------
+root@OpenWrt:/# 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Ora puoi togliere l’IP statico, spegnere dnsmasq e staccare l’adattatore seriale.&lt;br /&gt;
+L’interfaccia Web di OpenWrt la trovia all’indirizzo &lt;a href=&quot;http://192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;Per la configurazione della parte ADSL/VDSL, va caricato uno dei firmware che si trovano nel repo di xdarlight: &lt;a href=&quot;https://xdarklight.github.io/lantiq-xdsl-firmware-info/&quot;&gt;REPO&lt;/a&gt;&lt;br /&gt;
+Va scaricato il firmware ( i più nuovi sono i migliori), va estratto come indicato nel sito, e caricato sul modem usando prima scp:&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;scp dslfirmware.bin root@192.168.1.1:/lib/firmware/dslfirmware.bin&lt;/code&gt;&lt;br /&gt;
+Poi entrando nella webui, sotto network/interfaces, in &lt;strong&gt;Firmware File&lt;/strong&gt; va inserito il percorso del file ( in questo caso /lib/firmware/dslfirmware.bin) .  &lt;br /&gt;
+In italia, per l’ADSL va scaricato il firmware &lt;strong&gt;Annex A&lt;/strong&gt;, mentre per la vdsl vanno bene tutti quelli che indicano &lt;code class=&quot;highlighter-rouge&quot;&gt;VDSL over ISDN&lt;/code&gt; Se sono presenti quelli col supporto al vectoring, è preferibile scaricare quelli.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Guida al flash di openwrt su router Tp-Link TD-W8970 e TD-W8980</summary></entry><entry><title type="html">TD-W8960N</title><link href="http://localhost:4000/pagine/router/wrt/2019/02/25/TD-W8960N.html" rel="alternate" type="text/html" title="TD-W8960N" /><published>2019-02-25T23:00:00+01:00</published><updated>2019-02-25T23:00:00+01:00</updated><id>http://localhost:4000/pagine/router/wrt/2019/02/25/TD-W8960N</id><content type="html" xml:base="http://localhost:4000/pagine/router/wrt/2019/02/25/TD-W8960N.html">&lt;p&gt;Guida al flash di openwrt sul router TP-Link TD-W8960N v5 &lt;a href=&quot;/media/8960n/outer.jpg&quot;&gt;&lt;img src=&quot;/media/8960n/outer.jpg&quot; alt=&quot;TD-W8960N Photo&quot; style=&quot;float: right; width:300px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Il router in questione viene prodotto da Tp-Link, ed e’ un modello che condivide la stessa board col Sagem F@st2704 v1.&lt;br /&gt;
+Utilizzeremo quindi l’immagine precompilata per quel router sul TpLink.&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione, per controllare passo passo cosa sta succedendo.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario scollegare il cavo del telefono.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: dopo la modifica non sara’ piu’ possibile utilizzare la parte modem del router ( se non riportandolo al firmware stock). Non mi ritengo responsabile per eventuali router brickati.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;/media/8960n/etichetta.jpg&quot;&gt;&lt;img src=&quot;/media/8960n/etichetta.jpg&quot; alt=&quot;etichetta&quot; style=&quot;float: right; width:200px&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA 2&lt;/strong&gt;&lt;/span&gt;: Verificare sull’etichetta nel retro del dispositivo che la versione del router sia la V5 !&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader:&lt;/p&gt;
+
+    &lt;p&gt;-Premere il tasto RESET sul retro del dispositivo&lt;br /&gt;
+ -Avviare il router dal pulsante nero posteriore tenendo premuto il tasto reset per 10 secondi&lt;br /&gt;
+ -Rilasciare il tasto reset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; -Ip Addr: 192.168.1.2  
+ -Netmask: 255.255.255.0  
+ -Gateway: 192.168.1.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su 192.168.1.1   &lt;img src=&quot;/media/agpwi/cfe.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Si aprirà la pagina per il caricamento del firmware, che dovrebbe essere simile a questa:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caricare openwrt &lt;a href=&quot;/media/8960n/openwrt.bin&quot;&gt;QUESTO&lt;/a&gt; firmware, e aspettare che si riavvii il router.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Togliere l’ip statico, ed andare su 192.168.1.1
+Se tutto e’ andato a buon fine dovrebbe presentarsi la UI di LUCI.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Per aggiornare il router alle nuove versioni di OpenWrt, il target e’ quello del FAST2704N&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/wrt/2019/02/25/TD-W8960N.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = w8960nwrt; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Guida al flash di openwrt sul router TP-Link TD-W8960N v5</summary></entry><entry><title type="html">ROOT e Custom GUI per TG-789Vac</title><link href="http://localhost:4000/pagine/router/mod-fw/2019/02/25/AGTOT-root.html" rel="alternate" type="text/html" title="ROOT e Custom GUI per TG-789Vac" /><published>2019-02-25T01:00:00+01:00</published><updated>2019-02-25T01:00:00+01:00</updated><id>http://localhost:4000/pagine/router/mod-fw/2019/02/25/AGTOT-root</id><content type="html" xml:base="http://localhost:4000/pagine/router/mod-fw/2019/02/25/AGTOT-root.html">&lt;p&gt;Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.
+&lt;a href=&quot;/media/agtot/router.png&quot;&gt;&lt;img src=&quot;/media/agtot/router.png&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Guida al Root del dispositivo, con firmware UNO aggiornato all’ultima versione (17.2). 
+Se non hai ancora installato il firmware UNO eccoti la guida: &lt;a href=&quot;/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html&quot;&gt;Come Flashare UNO TG-789Vac&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: La procedura viene eseguita su Linux&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Procedimento:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Impostare netcat in ascolto sul proprio pccon: &lt;code class=&quot;highlighter-rouge&quot;&gt;nc -lvvp 1337&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Loggarsi sul router in SSH usando come credenziali:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     -Username: engineer
+     -Password: quella usata per loggarsi come admin nella webui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dare questo comando: &lt;code class=&quot;highlighter-rouge&quot;&gt;set uci.button.button.@wps.handler 'nc 192.168.1.X 1337 -e /bin/sh'&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Premere il pulsante laterale per far partire netcat&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dare questi comandi sulla shell netcat aperta:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; set uci.button.button.@wps.handler 'wps_button_pressed.sh'
+ sed -i 's#root:/bin/false#root:/bin:ash#' /etc/passwd
+ uci set dropbear.lan.RootPasswordAuth='on'
+ uci set dropbear.lan.RootLogin='1'
+ uci commit
+ /etc/init.d.dropbear restart
+ passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Con il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;passwd&lt;/code&gt; chiedera’ di inserire la password dell’utente root.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Fine. Ora e’ possibile loggarsi in SSH come root/password&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Procedura per installare la gui di ansuel:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: Per evitare vari problemi alla ui, e’ consigliabile aver gia’ configurato il modem per la navigazione in internet.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Loggarsi sul router in SSH come root ( vedi sopra)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Dare i seguenti comandi:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; curl -k https://raw.githubusercontent.com/Ansuel/gui-dev-build-auto/master/GUI.tar.bz2 --output /tmp/GUI.tar.bz2
+ bzcat /tmp/GUI.tar.bz2 | tar -C / -xvf -
+ /etc/init.d/rootdevice force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;A procedura finita, e’ consigliabile riavviare il modem con &lt;code class=&quot;highlighter-rouge&quot;&gt;reboot&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Godersi la nuova ui! (creata da ANSUEL, pagina &lt;a href=&quot;https://github.com/Ansuel/tch-nginx-gui&quot;&gt;GitHub&lt;/a&gt; )&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/mod-fw/2019/02/25/AGTOT-root.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = agtotroot; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.</summary></entry><entry><title type="html">Firmware per TG789Vac-v2</title><link href="http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html" rel="alternate" type="text/html" title="Firmware per TG789Vac-v2" /><published>2018-08-05T02:00:00+02:00</published><updated>2018-08-05T02:00:00+02:00</updated><id>http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW</id><content type="html" xml:base="http://localhost:4000/pagine/router/mod-fw/2018/08/05/AGTOT-FW.html">&lt;p&gt;Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.
+&lt;a href=&quot;/media/agtot/router.png&quot;&gt;&lt;img src=&quot;/media/agtot/router.png&quot; alt=&quot;789vac Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Lo scopo della guida è di migliorare il router flashandolo col firmware della compagnia inglese UNO.
+Il firmware (che è solo in lingua inglese) migliora di molto la gestione del router.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: La procedura viene eseguita su Linux&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:blue&quot;&gt;&lt;strong&gt;Si ricorda inoltre&lt;/strong&gt;&lt;/span&gt;: che al termine della guida sarà necessario ricavarsi dal sito del proprio gestore i parametri per riconnettersi alla vdsl o per il voip.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Procedimento:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Installare dnsmasq tramite il proprio package manager.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     -Ip Addr: 10.0.0.2  
+     -Netmask: 255.255.255.0  
+     -Gateway: 10.0.0.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Sostituire il contenuto del file in &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/dnsmasq.conf&lt;/code&gt; con il contenuto di &lt;a href=&quot;/media/agtot/dnsmasq.conf&quot;&gt;dnsmasq.conf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Modificare il file del nuovo dnsmasq.conf sostituendo i parametri:&lt;/p&gt;
+
+    &lt;p&gt;-&lt;code class=&quot;highlighter-rouge&quot;&gt;Interface&lt;/code&gt; (il nome dell’interfaccia eth con il quale si carica il firmware, lo si trova con il comando ip addr )&lt;br /&gt;
+ -&lt;code class=&quot;highlighter-rouge&quot;&gt;insert:mac:modem:address:here&lt;/code&gt; con il mac del modem&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nella cartella &lt;code class=&quot;highlighter-rouge&quot;&gt;/srv/tftp&lt;/code&gt; (se non esiste creala) inserisci &lt;a href=&quot;/media/agtot/MST-TG789vac v2 17.2.278-0901008.rbi&quot;&gt;QUESTO&lt;/a&gt; firmaware e rinominalo in &lt;code class=&quot;highlighter-rouge&quot;&gt;uno.rbi&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, avviare dnsmasq in modalità debug ( per vedere cosa sta succedendo ) con &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo dnsmasq -d&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Spegnere il router e riaccenderlo in modalità bootp: premere il tasto reset da router spento, e accendere il device sempre tenendo premuto il tasto.&lt;br /&gt;
+Aspettare che il led info lampeggi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ora il firmware viene automaticamente caricato e il router si riavvia a fine della procedura.&lt;br /&gt;
+&lt;strong&gt;NOTA&lt;/strong&gt;: Nel debug di dnsmasq verrà segnalato il corretto caricamento del firmware!&lt;br /&gt;
+&lt;strong&gt;NOTA2&lt;/strong&gt;: Chiudere dnsmasq con ctrl+c solo quando il router sarà avviato: led arancione acceso.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Riabilitare il dhcp nel pc.&lt;br /&gt;
+La webui per la configurazione è all’indirizzo: 192.68.1.1
+La password per accedere alla WebUI è l’access keyscritta in basso a sinistra sull’etichetta del modem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/pagine/router/mod-fw/2019/02/25/AGTOT-root.html&quot;&gt;Root del device e Custom UI&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: La compagnia australiana iiNet ha rilasciato il proprio firmware propietario, sembra funzionare correttamente, ed è compatibile con la dsl italiana. È scaricabile disponibile in due versioni, ed è consigliato prima installare la più vecchia (A) e poi la più nuova (B).&lt;br /&gt;
+&lt;a href=&quot;/media/agtot/vant-6_16.3.7637-ver2.2.1-CRF695-2721005.rbi&quot;&gt;A&lt;/a&gt; ; &lt;a href=&quot;/media/agtot/vant-6_16.3.8046-ver3.0-CRF767-2721002.rbi&quot;&gt;B&lt;/a&gt;&lt;br /&gt;
+Per flasharlo va seguita la guida precedente, rinominando il file in iinet.rbi  ( questo passaggio è utile solo per riconoscere più facilmente il file e scriverlo senza errori nel file dnsmasq.conf sul parametro dhcp-boot!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/mod-fw/2018/12/05/AGTOT-FW.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = agtotfw1; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.</summary></entry><entry><title type="html">Billion per AGPWI</title><link href="http://localhost:4000/pagine/router/mod-fw/2018/08/05/billion-dlink-agpwi.html" rel="alternate" type="text/html" title="Billion per AGPWI" /><published>2018-08-05T02:00:00+02:00</published><updated>2018-08-05T02:00:00+02:00</updated><id>http://localhost:4000/pagine/router/mod-fw/2018/08/05/billion-dlink-agpwi</id><content type="html" xml:base="http://localhost:4000/pagine/router/mod-fw/2018/08/05/billion-dlink-agpwi.html">&lt;p&gt;Guida per il flash del firmware su base BILLION per il router Telecom ADSL2+ Wi-Fi N, alias AGPWI o A4001N1 &lt;img src=&quot;/media/agpwi/outer.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Il router Telecom in questione e’ quello della foto, con o senza antenne esterne.&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario&lt;br /&gt;
+aver gia’ sbloccato il bootloader, se non e’ ancora sbloccato, segui &lt;a href=&quot;/pagine/a-router/wrt/2017/07/13/agpwi.html&quot;&gt;QUESTA&lt;/a&gt; guida fino al passo 8.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader: &lt;a href=&quot;/media/agpwi/smontato-agpwi.jpg&quot;&gt;&lt;img src=&quot;/media/agpwi/smontato-agpwi.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;-Ponticellare Rx e Tx (i due contatti segnati in rosso)&lt;br /&gt;
+ -Avviare il router dal pulsante nero posteriore&lt;br /&gt;
+ -Staccare il ponticello tra Rx e Tx quando resta accesa una sola luce rossa.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     -Ip Addr: 192.168.1.2  
+     -Netmask: 255.255.255.0  
+     -Gateway: 192.168.1.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt;   &lt;img src=&quot;/media/agpwi/cfe.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Si aprirà la pagina per il caricamento del firmware, che dovrebbe essere simile a questa:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caricare &lt;a href=&quot;/media/agpwi/Fw_Billion7800NL_2.32e_noCFE.bin&quot;&gt;QUESTO&lt;/a&gt; firmware, e aspettare che si riavvii il router.&lt;/p&gt;
+
+    &lt;p&gt;Si tratta del firmware del Billion 7800NL, che ha una board molto simile a quella di agpwi, e permette di fare praticamente di tutto col router, compresa la gestione dell’snr via webUI.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; Cose non funzionanti nel firmware:&lt;br /&gt;
+    -WiFi&lt;br /&gt;
+    -Porta USB
+    -Led che non combaciano&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; È possibile seguire la stessa procedura per flashare il firmware su base D-Link DSL-2750B. Di quel firmware ne esistono 2 versioni che funzionano correttamente (tranne i led). Le link entrambe:&lt;br /&gt;
+-&lt;a href=&quot;/media/agpwi/dlink/DSL_2750_v1.0.11_cfe_fs_kernel&quot;&gt;Ver. 1.0.11&lt;/a&gt;&lt;br /&gt;
+-&lt;a href=&quot;/media/agpwi/dlink/DSL_2750_v1-0-14_cfe_fs_kernel.bin&quot;&gt;Ver. 1.0.14&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nel caso dovessero esserci errori durante il flash o il router non dovesse avviarsi correttamente, è necessario avere a portata di mano un adattatore seriale-usb.&lt;br /&gt;
+Effettuare queste operazioni:
+&lt;img src=&quot;/media/agpwi/serial.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;-Spegnere il Router&lt;br /&gt;
+-Ponticellare TX e RX del seriale, accendere il router e aspettare che l’interfaccia web di CFE parta&lt;/p&gt;
+
+&lt;p&gt;-Collegare l’adattatore uart-usb al router come da foto( baudrate 115200).&lt;br /&gt;
+Per linux, usando screen il comando è: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo screen /dev/ttyNOMEDEVICE 115200 8N1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Leggere l’helper di CFE [digitare &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; e premere invio] e resettare la flash con il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;e a&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Riflashare il firmware dalla webUI con l’immagine precedentemente scaricata.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;EDIT:&lt;/strong&gt;&lt;/span&gt; Se dopo il riavvio il router non salva la configurazione impostata ( si riavvia sempre come se fosse la prima volta che viene acceso ):&lt;br /&gt;
+    -collegarsi al router con l’adattatore seriale&lt;br /&gt;
+    -usando l’helper di cfe ( come scritto sopra), dare il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; ( erase persistent storage data) e dare conferma
+    -riavviare con &lt;code class=&quot;highlighter-rouge&quot;&gt;reset&lt;/code&gt;. Ora il router dovrebbe funzionare correttamente.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/mod-fw/2018/08/05/billion-dlink-agpwi.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = billionagpwi; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Guida per il flash del firmware su base BILLION per il router Telecom ADSL2+ Wi-Fi N, alias AGPWI o A4001N1</summary></entry><entry><title type="html">Comtrend per AGPWI</title><link href="http://localhost:4000/pagine/router/mod-fw/2018/08/05/comtrend-agpwi.html" rel="alternate" type="text/html" title="Comtrend per AGPWI" /><published>2018-08-05T02:00:00+02:00</published><updated>2018-08-05T02:00:00+02:00</updated><id>http://localhost:4000/pagine/router/mod-fw/2018/08/05/comtrend-agpwi</id><content type="html" xml:base="http://localhost:4000/pagine/router/mod-fw/2018/08/05/comtrend-agpwi.html">&lt;p&gt;Guida per il flash del firmware su base Comtrend AR5382u per il router Telecom ADSL2+ Wi-Fi N, alias AGPWI o A4001N1 &lt;img src=&quot;/media/agpwi/outer.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Il router in questione e’ quello della foto, con o senza antenne esterne.&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario&lt;br /&gt;
+aver gia’ sbloccato il bootloader, se non e’ ancora sbloccato, segui &lt;a href=&quot;/pagine/a-router/wrt/2017/07/13/agpwi.html&quot;&gt;QUESTA&lt;/a&gt; guida fino al passo 8.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader col metodo del ponticello e assegnare un ip statico al pc ( vedi i primi passi della guida per sbloccare il bootloader).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt;   &lt;img src=&quot;/media/agpwi/cfe.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Si aprirà la solita pagina di cfe per il caricamento del firmware:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caricare prima &lt;a href=&quot;/media/agpwi/comtrend/AR-5382u-CFE-A731-406TDE-C01_R01_0623.bin&quot;&gt;QUESTO&lt;/a&gt; firmware ( e’ il firmware base ), e aspettare che si riavvii il router.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A router riavviato, verificare che il firmware funzioni correttamente ( la webUI dovrebbe essere sul solito &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt; o su &lt;a href=&quot;192.168.1.254&quot;&gt;102.168.1.254&lt;/a&gt; ), spegnerlo, riaccenderlo in bootloader ( sempre col metodo del ponticello), e caricare &lt;a href=&quot;/media/agpwi/comtrend/AR-5382u-A731-406CTL-T01_R08.bin&quot;&gt;questo&lt;/a&gt; secondo firmware.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA&lt;/strong&gt;&lt;/span&gt;: Nel caso dovesse richieder login e password per accedere alla webUI:&lt;br /&gt;
+    -Username: &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt;&lt;br /&gt;
+    -Password: &lt;code class=&quot;highlighter-rouge&quot;&gt;12345&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; Cose non funzionanti nel firmware:&lt;br /&gt;
+    -WiFi&lt;br /&gt;
+    -Led che non combaciano&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nel caso dovessero esserci errori durante il flash o il router non dovesse avviarsi correttamente, è necessario avere a portata di mano un adattatore seriale-usb.&lt;br /&gt;
+Effettuare queste operazioni:
+&lt;img src=&quot;/media/agpwi/serial.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;-Spegnere il Router&lt;br /&gt;
+-Ponticellare TX e RX del seriale, accendere il router e aspettare che l’interfaccia web di CFE parta&lt;/p&gt;
+
+&lt;p&gt;-Collegare l’adattatore uart-usb al router come da foto( baudrate 115200).&lt;br /&gt;
+Per linux, usando screen il comando è: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo screen /dev/ttyNOMEDEVICE 115200 8N1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Leggere l’helper di CFE [digitare &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; e premere invio] e resettare la flash con il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;e a&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Riflashare il firmware dalla webUI con l’immagine precedentemente scaricata.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/mod-fw/2018/08/05/comtrend-agpwi.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = comtrendagpwi; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Guida per il flash del firmware su base Comtrend AR5382u per il router Telecom ADSL2+ Wi-Fi N, alias AGPWI o A4001N1</summary></entry><entry><title type="html">ADSL Kill-Switch</title><link href="http://localhost:4000/pagine/progetti/2017/07/13/killswitch.html" rel="alternate" type="text/html" title="ADSL Kill-Switch" /><published>2017-07-13T00:00:00+02:00</published><updated>2017-07-13T00:00:00+02:00</updated><id>http://localhost:4000/pagine/progetti/2017/07/13/killswitch</id><content type="html" xml:base="http://localhost:4000/pagine/progetti/2017/07/13/killswitch.html">&lt;p&gt;Il kill-switch è stato costruito per ovviare ad un problema abbastanza comune.&lt;br /&gt;La mia zona di residenza infatti è spesso soggetta a temporali, ed i cavi telefonici viaggiano ancora per via aerea.&lt;/p&gt;
+
+&lt;p&gt;Si rendeva quindi necessario poter scollegare velocemente il modem dalla linea adsl senza dover staccare il cavo, ma lasciando comunque operativa la linea telefonica per ricevere telefonate.&lt;/p&gt;
+
+&lt;p&gt;Il progetto è iniziato a partire da un filtro telefonico, che, una volta smontato, aveva lo spazio sufficiente per contenere un’interruttore.&lt;/p&gt;
+
+&lt;p&gt;Lo scopo era quindi quello di interrompere uno dei due cavi del doppino telefonico, e passarlo attraverso un interruttore&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Vista del Filtro aperto, a lavoro ultimato&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/media/killswitch/2.jpg&quot;&gt;&lt;img src=&quot;/media/killswitch/2.jpg&quot; alt=&quot;Drawing&quot; style=&quot;width: 250px; align=center;&quot; /&gt;
+  &lt;a href=&quot;/media/killswitch/3.jpg&quot;&gt;&lt;img src=&quot;/media/killswitch/3.jpg&quot; alt=&quot;Drawing&quot; style=&quot;width: 250px; align=center;&quot; /&gt;&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Foto fatta a progetto ultimato&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/media/killswitch/1.jpg&quot;&gt;&lt;img src=&quot;/media/killswitch/1.jpg&quot; alt=&quot;Drawing&quot; style=&quot;width: 350px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Per testare il filtro è bastato collegare il modem, prima senza filtro, poi col filtro e verificare che non ci fossero variazioni di SNR tra le due prove.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parametri della linea senza il filtro: 
+&lt;a href=&quot;/media/killswitch/5.jpg&quot;&gt;&lt;img src=&quot;/media/killswitch/5.jpg&quot; alt=&quot;Drawing&quot; style=&quot;width: 700; height=76.3; align=center;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parametri della linea con il filtro:
+   &lt;a href=&quot;/media/killswitch/4.jpg&quot;&gt;&lt;img src=&quot;/media/killswitch/4.jpg&quot; alt=&quot;Drawing&quot; style=&quot;width: 700; height=76.3; align=center;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Non c’è praticamente variazione tra i valori della linea con o senza il filtro.&lt;br /&gt;
+Anzi, con il filtro sembra che l’SNR sia più alto.&lt;br /&gt;
+In ogni caso lo switch funziona alla perfezione&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;That’s All&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/progetti/2017/07/13/killswitch.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = adslkillsw; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Il kill-switch è stato costruito per ovviare ad un problema abbastanza comune.La mia zona di residenza infatti è spesso soggetta a temporali, ed i cavi telefonici viaggiano ancora per via aerea.</summary></entry><entry><title type="html">Telecom/Tim Firmware AGPWI</title><link href="http://localhost:4000/pagine/router/stock-fw/2017/07/13/agpwi.html" rel="alternate" type="text/html" title="Telecom/Tim Firmware AGPWI" /><published>2017-07-13T00:00:00+02:00</published><updated>2017-07-13T00:00:00+02:00</updated><id>http://localhost:4000/pagine/router/stock-fw/2017/07/13/agpwi</id><content type="html" xml:base="http://localhost:4000/pagine/router/stock-fw/2017/07/13/agpwi.html">&lt;p&gt;Guida per ripristinare il firmware stock su Telecom ADSL2+ Wi-Fi N &lt;img src=&quot;/media/agpwi/outer.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Il router Telecom in questione e’ quello senza antenne esterne.
+Questo modello e’ differente da quello con le antenne esterne, ed e’ necessaria una procedura particolare per flashare openWrt.
+Il router e’ prodotto da ADB, modello della board: P.DG A4001N&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione, per controllare passo passo cosa sta succedendo&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario scollegare il cavo del telefono.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: Non mi ritengo responsabile per eventuali router brickati.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Smontare il Router svitando le due viti presenti nella parte inferiore e forzarne l’apertura partendo dalla parte posteriore.&lt;/p&gt;
+
+    &lt;p&gt;Se avete un convertitore uart, tanto vale stagnare i due ponticelli ( segnati in nero) in modo da rendere utilizzabile la UART.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader:
+&lt;a href=&quot;/media/agpwi/smontato-agpwi.jpg&quot;&gt;&lt;img src=&quot;/media/agpwi/smontato-agpwi.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;-Ponticellare Rx e Tx (i due contatti segnati in rosso)&lt;br /&gt;
+ -Avviare il router dal pulsante nero posteriore&lt;br /&gt;
+ -Staccare il ponticello tra Rx e Tx quando resta accesa una sola luce rossa.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; -Ip Addr: 192.168.1.2  
+ -Netmask: 255.255.255.0  
+ -Gateway: 192.168.1.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt;   &lt;img src=&quot;/media/agpwi/cfe.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Si aprirà la pagina per il caricamento del firmware, che dovrebbe essere simile a questa:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caricare &lt;a href=&quot;/media/agpwi/AGPWI_1.1.0_013.rmt.sig&quot;&gt;QUESTO&lt;/a&gt; firmware, e aspettare che si riavvii il router.&lt;/p&gt;
+
+    &lt;p&gt;Il firmware è uno dei primi firmware Telecom per agpwi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Una volta caricato, aprire il browser, andare su &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt; e verificare che il firmware sia effettivamente stato caricato correttamente ( dovrebbe uscire la classica pagina di login dei vecchi telecom).&lt;br /&gt;
+    Ora il router sarebbe pronto per funzionare, ma ha i valori del mac e del seriale sbagliati.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Connettersi quindi via telnet al router (per linux: telnet 192.168.1.1)
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--Username: admin  
+--Password: riattizzati  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Dovrebbe aprirsi la shell con OpenRG.&lt;/p&gt;
+
+    &lt;p&gt;Dare i seguenti comandi, sostituendo gli zeri con i valori dati reali del vostro router ( si trovano nell’etichetta):&lt;/p&gt;
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; --conf factory  
+ --unhide  
+ --open  
+ --set network/rg_mac 00:00:00:00:00:00  
+ --set manufacturer/hardware/serial_num 00000I0000000  
+ --close  
+ --exit  
+ --exit  
+ --system restore_default  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Con questi comandi il router verrà riportato alle condizioni di fabbrica, ho omesso ( nella parte in cui si settano i valori del router ) di riportare il set delle password WEP e WPA originali del router, in quanto sono insicure e vanno cambiate in ogni caso.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Ora che il router è stato portato alle condizioni di fabbrica, collegarlo alla linea adsl e aspettare ( ci vorrà circa una mezz’oretta ) che si sincronizzi con la linea, scarichi automaticamente tutti gli aggiornamenti ( la telegestione è attivata ) e i dati relativi al piano tariffario&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; Nel caso il router dovesse allinearsi alla portante adsl ma non dovesse aggiornarsi, e’ necessario chiamare l’assistenza clienti e segnalare che il router non si aggiorna ed e’ impossibile navigare. Sistemeranno tutto gli addetti ( visto che e’ loro compito).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nel caso dovessero esserci errori durante il flash o il router non dovesse avviarsi correttamente, è necessario avere a portata di mano un adattatore seriale-usb.&lt;br /&gt;
+Effettuare queste operazioni:
+&lt;img src=&quot;/media/agpwi/serial.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;-Spegnere il Router&lt;br /&gt;
+-Ponticellare TX e RX del seriale, accendere il router e aspettare che l’interfaccia web di CFE parta&lt;/p&gt;
+
+&lt;p&gt;-Collegare l’adattatore uart-usb al router come da foto( baudrate 115200).&lt;br /&gt;
+Per linux, usando screen il comando è: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo screen /dev/ttyNOMEDEVICE 115200 8N1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Leggere l’helper di CFE [digitare &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; e premere invio] e resettare la flash con il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;e a&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;-Riflashare il firmware dalla webUI di cfe con l’immagine precedentemente scaricata.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/stock-fw/2017/07/13/agpwi.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = stockagpwi; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Guida per ripristinare il firmware stock su Telecom ADSL2+ Wi-Fi N</summary></entry><entry><title type="html">AGPWI</title><link href="http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html" rel="alternate" type="text/html" title="AGPWI" /><published>2017-07-13T00:00:00+02:00</published><updated>2017-07-13T00:00:00+02:00</updated><id>http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi</id><content type="html" xml:base="http://localhost:4000/pagine/router/wrt/2017/07/13/agpwi.html">&lt;p&gt;Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N &lt;img src=&quot;/media/agpwi/outer.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Il router Telecom in questione e’ quello senza antenne esterne.
+Questo modello e’ differente da quello con le antenne esterne, ed e’ necessaria una procedura particolare per flashare openWrt.
+Il router e’ prodotto da ADB, modello della board: P.DG A4001N&lt;/p&gt;
+
+&lt;p&gt;Per procedere con la modifica, e’ consigliabile avere un adattatore seriale-usb da connettere alla board durante l’operazione, per controllare passo passo cosa sta succedendo&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IMPORTANTE&lt;/strong&gt;: Prima di procedere con la guida, è necessario scollegare il cavo del telefono.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;DISCLAIMER&lt;/strong&gt;&lt;/span&gt;: dopo la modifica non sara’ piu’ possibile utilizzare la parte modem del router ( se non riportandolo stock). Non mi ritengo responsabile per eventuali router brickati.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Inzio della guida:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Smontare il Router svitando le due viti presenti nella parte inferiore e forzarne l’apertura partendo dalla parte posteriore.&lt;/p&gt;
+
+    &lt;p&gt;Se avete un convertitore uart, tanto vale stagnare i due ponticelli ( segnati in nero) in modo da rendere utilizzabile la UART.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Avviare il router in modalità bootloader:
+&lt;a href=&quot;/media/agpwi/smontato-agpwi.jpg&quot;&gt;&lt;img src=&quot;/media/agpwi/smontato-agpwi.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right; width:300px;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;-Ponticellare Rx e Tx (i due contatti segnati in rosso)&lt;br /&gt;
+ -Avviare il router dal pulsante nero posteriore&lt;br /&gt;
+ -Staccare il ponticello tra Rx e Tx quando resta accesa una sola luce rossa.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assegnare un Ip statico al pc, utilizzando questi parametri:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; -Ip Addr: 192.168.1.2  
+ -Netmask: 255.255.255.0  
+ -Gateway: 192.168.1.1  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connettere il pc al router con un cavo ethernet, aprire il browser ed entrare su &lt;a href=&quot;192.168.1.1&quot;&gt;192.168.1.1&lt;/a&gt;   &lt;img src=&quot;/media/agpwi/cfe.jpg&quot; alt=&quot;Agpwi Photo&quot; style=&quot;float: right;&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;Si aprirà la pagina per il caricamento del firmware, che dovrebbe essere simile a questa:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caricare &lt;a href=&quot;/media/agpwi/AGPWI_1.1.0_013.rmt.sig&quot;&gt;QUESTO&lt;/a&gt; firmware, e aspettare che si riavvii il router.&lt;/p&gt;
+
+    &lt;p&gt;Il firmware è uno dei vecchi firmware Telecom, ha una vulnerabilità, che sfrutterò per accedere all’interfaccia avanzata del modem e abilitare Telnet.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nel &lt;a href=&quot;/media/agpwi/alice.html&quot;&gt;LINK&lt;/a&gt; Selezionare &lt;strong&gt;Abilita interfacca Avanzata&lt;/strong&gt; successivamente selezionare il modello del router. Premendo su esegui si accede all’interfaccia avanzata del router. (Tool preso dal repository di ilpuntotecnicoeadsl)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flashare ora il nuovo cfe, scaricando &lt;a href=&quot;/media/agpwi/cfe-A4001N-V0000_96328avng.bin&quot;&gt;QUESTO&lt;/a&gt; file, rinominandolo in “cfe.bin”” (per comodita’) ed avviare un server ftp (io uso dnsmasq) sulla cartella di download. Per velocizzare l’operazione successiva rinominare il file scaricato in cfe.bin.&lt;/p&gt;
+
+    &lt;p&gt;Sintassi del comando dnsmasq per linux: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo dnsmasq -d --enable-tftp --tftp-root=&quot;pwd&quot;&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Connettersi al router con telnet ( per linux: telnet 192.168.1.1); Apparirà la shell di OpenRg.&lt;br /&gt;
+ Per loggarsi inserire:
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     -Username: admin  
+     -Password: riattizzati  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Digitare: &lt;code class=&quot;highlighter-rouge&quot;&gt;flash load -u tftp://192.168.1.2/cfe.bin -s00&lt;/code&gt; e dare invio.&lt;br /&gt;
+ Al termine del flash digitare: &lt;code class=&quot;highlighter-rouge&quot;&gt;system reboot&lt;/code&gt; per riavviare.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; Da questo momento è possibile flashare qualsiasi immagine compatibile con questo router, non solo OpenWRT.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;9.Procedura per flashare OpenWRT:&lt;br /&gt;
+        -Spegnere il Router&lt;br /&gt;
+        -Ponticellare TX e RX del seriale e accendere il router, Si dovrebbe accendere la luce rossa.&lt;br /&gt;
+        -Riconnettersi via web browser a 192.168.1.1 flashare &lt;a href=&quot;/media/agpwi/cfe+wrt.bin&quot;&gt;openWRT&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;L’immagine do openWrt linkata è la 15.05 ChaosCalmer, che contiene però anche un cfe modificato per avviarla correttamente.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Da questo momento in poi è possibile flashare OpenWRT da cfe. Il target di OpenWRT per questo agpwi è A4001N1.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;span style=&quot;color:red&quot;&gt;&lt;strong&gt;NOTA:&lt;/strong&gt;&lt;/span&gt; per aggiornare openWRT, se non si vuole passare attraverso cfe col metodo del ponticello, è necessario flashare le immagini direttamente dalla webUI di LuCi, è quindi necessario usare solo i pacchetti segnati con sysupgrade.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nel caso dovessero esserci errori durante il flash, o il router non dovesse avviarsi, è necessario avere a portata di mano un adattatore seriale-usb.&lt;br /&gt;
+Effettuare queste operazioni:&lt;/p&gt;
+
+&lt;p&gt;-Spegnere il Router&lt;br /&gt;
+-Ponticellare TX e RX del seriale, accendere il router e aspettare che l’interfaccia web di CFE parta&lt;br /&gt;
+-Collegare l’adattatore uart-usb al router ( baudrate 115200)&lt;br /&gt;
+-[Per linux, usando screen il comando è: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo screen /dev/ttyNOMEDEVICE 115200 8N1]&lt;/code&gt;&lt;br /&gt;
+-Leggere l’helper di CFE [digitare &lt;code class=&quot;highlighter-rouge&quot;&gt;help&lt;/code&gt; e premere invio] e resettare la flash con il comando &lt;code class=&quot;highlighter-rouge&quot;&gt;e a&lt;/code&gt;&lt;br /&gt;
+-Riflashare Openwrt dalla webUI di cfe con l’immagine precedentemente scaricata.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fine&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div id=&quot;disqus_thread&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://pietrotti97.com/pagine/a-router/wrt/2017/07/13/agpwi.html;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = wrtagpwi; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://pietrotti97.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+&lt;/script&gt;
+
+&lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;https://disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</content><author><name></name></author><summary type="html">Guida per sblocco e flash di openwrt su router Telecom ADSL2+ Wi-Fi N</summary></entry><entry><title type="html">Materiale Universitario</title><link href="http://localhost:4000/pagine/tings/2017/07/13/uni.html" rel="alternate" type="text/html" title="Materiale Universitario" /><published>2017-07-13T00:00:00+02:00</published><updated>2017-07-13T00:00:00+02:00</updated><id>http://localhost:4000/pagine/tings/2017/07/13/uni</id><content type="html" xml:base="http://localhost:4000/pagine/tings/2017/07/13/uni.html">&lt;p&gt;In questa pagina raccolgo il materiale didattico della facoltà di Ingegneria Elettronica Informatica.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Algebra:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/algebra/pri&quot;&gt;Primo Parziale&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/algebra/sec&quot;&gt;Secondo Parziale&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/algebra/tot&quot;&gt;Prove Totali&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/algebra/Meccanica&quot;&gt;Prove Ing. Meccanica&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Informatica:&lt;br /&gt;
+  -&lt;a href=&quot;/uni/info&quot;&gt;Esami Svolti&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Analisi 1-A:&lt;/li&gt;
+  &lt;li&gt;Analisi 1-B:&lt;/li&gt;
+  &lt;li&gt;Fisica 1:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/fisica1/esami&quot;&gt;Esami&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Fisica 2:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/fisica2/Esami&quot;&gt;Vecchi Esami&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/fisica2/Esercizi&quot;&gt;Esercizi&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Statistica:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/statistica/esami&quot;&gt;Vecchi Esami con Soluzioni&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Analisi dei Calcolatori:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/uni/calcolatori&quot;&gt;Materiale Vario&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">In questa pagina raccolgo il materiale didattico della facoltà di Ingegneria Elettronica Informatica.</summary></entry></feed>
