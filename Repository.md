@@ -11,13 +11,9 @@ Nel repo di OpenWRT carico anche i binari compilati per certe board ( A5v11 per 
 **NOTA**: La cartella del mirror di OpenWrt si aggiorna automaticamente ogni giorno, quindi i file sono sempre all'ultima versione. 
 
 
-[Repository Router](/repo/Router)
+[Repository Router](https://github.com/pietrotti97/pietrotti97.github.io/tree/master/repo/Router)
 <br>
-[Repository Openwrt](/repo/OpenWrt/repo)
+[Repository Openwrt](https://github.com/pietrotti97/pietrotti97.github.io/tree/master/repo/OpenWrt)
 <br>
-[Repository ArchLinux](/repo/ArchLinux)
-<br>
-[Mirror Openwrt](/repo/OpenWrt/mirror)
-<br>
-[DTB Files](/repo/DTB)
+[DTB Files](https://github.com/pietrotti97/pietrotti97.github.io/tree/master/repo/DTB)
 <br>
