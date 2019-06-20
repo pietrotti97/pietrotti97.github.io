@@ -14,14 +14,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Pietrotti97 Website
-email:
+email: 
 description: # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pietrotti97.com" # the base hostname & protocol for your site, e.g. http://example.com
+plugins:
+  - jekyll-sitemap
 
 #twitter_username: pietrotti97
 #avatar: "/img/avatar-icon.png"
-author:
+author: Pietrotti97
 name: Pietrotti97
 social-network-links:
 email: "pietrotti97@gmail.com"
@@ -31,8 +33,7 @@ timezone: "Europe/Rome"
 markdown: kramdown
 theme: minima
 #include: ["_pages"]
-plugins:
-  - jekyll-sitemap
+
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
