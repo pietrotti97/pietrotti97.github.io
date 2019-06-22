@@ -23,12 +23,14 @@ layout: default
                             <li type=disc><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
                             </ul>
                         {% endfor %}
-                        <p></p>
+                       
                         <li><h4 >{{ "Firmware Alternativi" }}</h4>
                         {% for post in site.categories["mod-fw"] %}
                             <ul>
                             <li type=disc><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
                             </ul>
+                        {% endfor %}
+                      
                         <li><h4 >{{ "Stock Firmware" }}</h4>
                         {% for post in site.categories["stock-fw"] %}
                             <ul>
@@ -36,8 +38,7 @@ layout: default
                             </ul>
                         {% endfor %}
                         <p></p>
-                        {% endfor %}
-                        <p></p>
+                        
                     </ul>
         {% for category in site.categories %}
             {% capture category_name %}{{ category | first }}{% endcapture %}
