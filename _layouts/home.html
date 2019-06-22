@@ -15,30 +15,8 @@ layout: default
     <h2 class="page-heading">{{ page.list_title | default: "Benvenuto!" }}</h2>
     <h3 class="footer-heading">Qui pubblico guide, progetti portati a termine e materiale universitario utile.</h3>
      <ul>
-                    <li><h3 class="category-head">{{ "Router Mods" }}</h3>
-                    <ul>
-                        <li><h4 >{{ "Openwrt" }}</h4>
-                        {% for post in site.categories["wrt"] %}
-                            <ul>
-                            <li type=disc><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
-                            </ul>
-                        {% endfor %}
-                        <p></p>
-                        <li><h4 >{{ "Stock Firmware" }}</h4>
-                        {% for post in site.categories["stock-fw"] %}
-                            <ul>
-                            <li type=disc><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
-                            </ul>
-                        {% endfor %}
-                        <p></p>
-                        <li><h4 >{{ "Firmware Alternativi" }}</h4>
-                        {% for post in site.categories["mod-fw"] %}
-                            <ul>
-                            <li type=disc><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a>
-                            </ul>
-                        {% endfor %}
-                        <p></p>
-                    </ul>
+                    <li><h3 class="category-head"><a href="{{ site.baseurl }}{{ post.url }}">{{ "Router Mods" }}</h3>
+                    
         {% for category in site.categories %}
             {% capture category_name %}{{ category | first }}{% endcapture %}
                 
