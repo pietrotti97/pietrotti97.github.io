@@ -17,9 +17,9 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 
 1. Trasferire con scp i 3 file nel modem:  
 
-        [adblock](/media/agtot/)  
-        [luci-app-adblock](/media/agtot/)  
-        [ssl](/media/agtot/)  
+        - [adblock](/media/agtot/)  
+        - [luci-app-adblock](/media/agtot/)  
+        - [ssl](/media/agtot/)  
         La sintassi per scp è: ````scp filename root@192.168.1.1:/root````  
 
 2. Loggarsi sul router come root in SSH.
@@ -32,11 +32,12 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 
 5. Nella sezione Services/AdBlock, settare:
 
-    Download Utility: Curl  
-    Startup Trigger:  wan  
-    Nella blacklist io ho selezionato solo adaway e adguard. Sembrano sufficienti per bloccare la maggior parte degli ads.  
-    Nelle opzioni extra, aggiungere il campo ````DNS Directory```` 
-    DNS directory io ho settato ````/root/adblock```` ma sarebbe consono settarla in un archivio rimovibile per evitare di finire lo storage interno di agtot.  
+    - Download Utility: Curl  
+    - Startup Trigger:  wan  
+    - Nella blacklist io ho selezionato solo adaway e adguard. Sembrano sufficienti per bloccare la maggior parte degli ads.  
+    - Nelle opzioni extra, aggiungere il campo ````DNS Directory```` 
+    - DNS directory io ho settato ````/root/adblock```` ma sarebbe consono settarla in un archivio rimovibile per evitare di finire lo storage interno di agtot.  
+    
     Abilitare AdBlock e salvare. 
     
     **NOTA:** Nel caso in cui gli ads non dovessero scomparire, riavviare il modem!
