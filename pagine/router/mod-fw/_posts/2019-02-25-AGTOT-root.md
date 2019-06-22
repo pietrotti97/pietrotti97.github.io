@@ -20,7 +20,7 @@ Se non hai ancora installato il firmware UNO eccoti la guida: [Come Flashare UNO
 
 **Procedimento:**
 
-1. Impostare netcat in ascolto sul proprio pccon: ```nc -lvvp 1337```
+1. Impostare netcat in ascolto sul proprio pc con: ```nc -lvvp 1337```
 
 2. Loggarsi sul router in SSH usando come credenziali:
 ```
