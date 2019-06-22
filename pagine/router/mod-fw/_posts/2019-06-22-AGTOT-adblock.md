@@ -15,7 +15,8 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 
 **Procedimento:**
 
-1. Trasferire con scp i 3 file nel modem:
+1. Trasferire con scp i 3 file nel modem:  
+
         [adblock](/media/agtot/)  
         [luci-app-adblock](/media/agtot/)  
         [ssl](/media/agtot/)  
