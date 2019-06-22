@@ -9,7 +9,7 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 <a href="/media/agtot/router.png"><img src="/media/agtot/router.png" alt="Agpwi Photo" style="float: right;" />  
 
 
-Se non hai ancora installato il firmware UNO eccoti la guida: [Come Flashare UNO TG-789Vac]({% post_url 2018-08-05-AGTOT-FW %})
+Se non hai ancora installato il firmware UNO eccoti la guida: [Come Flashare UNO sul TG-789Vac]({% post_url 2018-08-05-AGTOT-FW %})
 
 
 ><span style="color:red">**DISCLAIMER**</span>: Non mi ritengo responsabile per eventuali router brickati, eventuali gatti morti o guerre termonucleari dovute ad un malfunzionamento del suddetto prodotto.  
