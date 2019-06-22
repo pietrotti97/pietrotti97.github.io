@@ -16,7 +16,7 @@ layout: default
     <h3 class="footer-heading">Qui pubblico guide, progetti portati a termine e materiale universitario utile.</h3>
      <ul>
                     <li><h3 class="category-head">{{ "Router Mods" }}</h3>
-                         <ul>
+                    <ul>
                         <li><h4 >{{ "Openwrt" }}</h4>
                         {% for post in site.categories["wrt"] %}
                             <ul>
@@ -39,7 +39,6 @@ layout: default
                         {% endfor %}
                         <p></p>
                     </ul>
-                    
         {% for category in site.categories %}
             {% capture category_name %}{{ category | first }}{% endcapture %}
                 
