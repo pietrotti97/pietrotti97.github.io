@@ -28,7 +28,7 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
         La sintassi da utilizzare è: ````opkg install nomefile.ipk```` 
 
 4. Dalla WebUi del modem, nella sezione ````Estensioni```` installare LuCi.
-        L'interfaccia si trova sulla pagina 9080. Entrare e  loggarsi. 
+        L'interfaccia si trova sulla porta 9080. Entrare e  loggarsi. 
 
 5. Nella sezione Services/AdBlock, settare:
 
