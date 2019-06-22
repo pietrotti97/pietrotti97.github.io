@@ -3,10 +3,11 @@ layout: post
 title:  "ROOT e Custom GUI per TG-789Vac"
 date:   2019-02-25 00:00:00 
 ---
+Guida al Root del dispositivo, con firmware UNO aggiornato all'ultima versione (17.2). 
 Il router in questione è quello bianco della foto, in Italia viene distribuito da Tim o Fastweb per abbonamenti vdsl.
 <a href="/media/agtot/router.png"><img src="/media/agtot/router.png" alt="Agpwi Photo" style="float: right;" />  
 
-Guida al Root del dispositivo, con firmware UNO aggiornato all'ultima versione (17.2). 
+
 Se non hai ancora installato il firmware UNO eccoti la guida: [Come Flashare UNO TG-789Vac]({% post_url 2018-08-05-AGTOT-FW %})
 
 
