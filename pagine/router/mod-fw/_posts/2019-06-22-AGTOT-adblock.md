@@ -38,7 +38,7 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
     - Nelle opzioni extra, aggiungere il campo ````DNS Directory```` 
     - DNS directory io ho settato ````/root/adblock```` ma sarebbe consono settarla in un archivio rimovibile per evitare di finire lo storage interno di agtot.  
     
-    Abilitare AdBlock e salvare. 
+6. Abilitare AdBlock e salvare. 
     
     **NOTA:** Nel caso in cui gli ads non dovessero scomparire, riavviare il modem!
 
