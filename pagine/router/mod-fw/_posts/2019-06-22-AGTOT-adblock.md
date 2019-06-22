@@ -13,53 +13,32 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 
 ><span style="color:red">**NOTA**</span>: La procedura viene eseguita su Linux  
 
-
-
 **Procedimento:**
 
-1. Impostare netcat in ascolto sul proprio pccon: ```nc -lvvp 1337```
+1. Trasferire con scp i 3 file nel modem:
+        [adblock](/media/agtot/)  
+        [luci-app-adblock](/media/agtot/)  
+        [ssl](/media/agtot/)  
+        La sintassi per scp è: ````scp filename root@192.168.1.1:/root````  
 
-2. Loggarsi sul router in SSH usando come credenziali:
-```
-        -Username: engineer
-        -Password: quella usata per loggarsi come admin nella webui
-```
+2. Loggarsi sul router come root in SSH.
         
-2. Dare questo comando: ```set uci.button.button.@wps.handler 'nc 192.168.1.X 1337 -e /bin/sh'```
+3. I 3 file appena caricati dovrebbero  essere presenti nella cartella ````/root```` del modem.
+        Installare in sequenza, adblock, poi luci-app-adblock, poi ssl
 
-3. Premere il pulsante laterale per far partire netcat 
+4. Dalla WebUi del modem, nella sezione ````Estensioni```` installare LuCi.
+        L'interfaccia si trova sulla pagina 9080. Entrare e  loggarsi. 
 
-4. Dare questi comandi sulla shell netcat aperta:
-```
-    set uci.button.button.@wps.handler 'wps_button_pressed.sh'
-    sed -i 's#root:/bin/false#root:/bin:ash#' /etc/passwd
-    uci set dropbear.lan.RootPasswordAuth='on'
-    uci set dropbear.lan.RootLogin='1'
-    uci commit
-    /etc/init.d.dropbear restart
-    passwd
-```
-Con il comando ```passwd``` chiedera' di inserire la password dell'utente root. 
+5. Nella sezione Services/AdBlock, settare:
 
-5. Fine. Ora e' possibile loggarsi in SSH come root/password 
-
-
-**Procedura per installare la gui di ansuel:**
-
-><span style="color:red">**NOTA**</span>: Per evitare vari problemi alla ui, e' consigliabile aver gia' configurato il modem per la navigazione in internet.
-
-1. Loggarsi sul router in SSH come root ( vedi sopra)
-
-2. Dare i seguenti comandi:
-```
-    curl -k https://raw.githubusercontent.com/Ansuel/gui-dev-build-auto/master/GUI.tar.bz2 --output /tmp/GUI.tar.bz2
-    bzcat /tmp/GUI.tar.bz2 | tar -C / -xvf -
-    /etc/init.d/rootdevice force
-```
-A procedura finita, e' consigliabile riavviare il modem con ```reboot```
-
-3. Godersi la nuova ui! (creata da ANSUEL, pagina [GitHub](https://github.com/Ansuel/tch-nginx-gui) )
-
+    Download Utility: Curl  
+    Startup Trigger:  wan  
+    Nella blacklist io ho selezionato solo adaway e adguard. Sembrano sufficienti per bloccare la maggior parte degli ads.  
+    Nelle opzioni extra, aggiungere il campo ````DNS Directory```` 
+    DNS directory io ho settato ````/root/adblock```` ma sarebbe consono settarla in un archivio rimovibile per evitare di finire lo storage interno di agtot.  
+    Abilitare AdBlock e salvare. 
+    
+    **NOTA:** Nel caso in cui gli ads non dovessero scomparire, riavviare il modem!
 
 **Fine**
 
