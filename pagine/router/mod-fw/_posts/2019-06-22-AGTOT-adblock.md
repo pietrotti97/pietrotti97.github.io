@@ -24,7 +24,8 @@ Il router in questione è quello bianco della foto, in Italia viene distribuito 
 2. Loggarsi sul router come root in SSH.
         
 3. I 3 file appena caricati dovrebbero  essere presenti nella cartella ````/root```` del modem.
-        Installare in sequenza, adblock, poi luci-app-adblock, poi ssl
+        Installare in sequenza, adblock, poi luci-app-adblock, poi ssl.
+        La sintassi da utilizzare è: ````opkg install nomefile.ipk```` 
 
 4. Dalla WebUi del modem, nella sezione ````Estensioni```` installare LuCi.
         L'interfaccia si trova sulla pagina 9080. Entrare e  loggarsi. 
