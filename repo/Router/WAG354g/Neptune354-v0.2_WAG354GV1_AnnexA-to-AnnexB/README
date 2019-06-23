@@ -1,0 +1,56 @@
+	
+   ABOUT
+   -----
+
+This firmware has been developed by Marco Vedovati with the help of many other developers.
+
+Sources are available at http://opensvn.csie.org/neptune354/
+
+instructions on how to build  at http://cyberstorm.altervista.org/
+
+
+   INSTALLATION
+   -------------
+
+You MUST AGREE to ALL the disclaimers (see DISCLAIMER.txt) if you intend to use this firmware.
+
+Upgrade via Web Interface or Tftp. After upgrade check your settings.
+
+If you are paranoid you can check firmware integrity using md5sum or sha1sum on unix systems.
+
+md5sum -c files.md5
+
+or
+
+sha1sum -c files.sha1
+
+ Similar programs exists for windows too, just do a search with google.
+
+
+   FAQ
+   ---
+
+Q: How can I know that this is the right firmware version for my router model?
+
+A: Every firmware has a identifier called code pattern, that is related to a specific hardware version and Annex. You can see the code pattern simply opening the firmware file with an hex editor.
+The first 4 bytes are the code pattern identifier.
+
+Firmware[Code Pattern] |          Hardware
+------------------------------------------------------------
+                       |
+WA31                   |          Linksys WAG354G V1  AnnexA
+WA32                   |          Linksys WAG354G V1  AnnexB
+WA7A                   |          Linksys WAG354G V2  AnnexA
+WA7B                   |          Linksys WAG354G V2  AnnexB
+HG1A                   |          Linksys HG200       AnnexA
+HG1B                   |          Linksys HG200       AnnexB
+
+
+Q: Flashing a wrong firmware version will brick my router?
+
+A: No, if you try to flash a firmware version with a wrong code pattern, the router will refuse to do it.
+   Anyway a correct code pattern does not imply a good/working firmware.
+
+
+
+

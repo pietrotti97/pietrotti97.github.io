@@ -1,0 +1,150 @@
+                   ***************
+                   *Release note:*
+                   ***************
+                   
+WIP --- Version 0.2:
+
+	* Base source code updated to 1.01.12
+	
+	* Graphic lifting in web interface.
+	
+	* Support for OptWare package system from NSLU-2 Project (http://www.nslu2-linux.org/wiki/Optware/Packages).
+	  Packages must be installed in a NFS mounted folder.
+	  The package list is: http://ipkg.nslu2-linux.org/feeds/unslung/wl500g
+	  Optware is activated from telnet with command: "optware-install"
+		
+	* Run a script after DSL Connection (put here your custom iptables rules, routes, nameservers...).
+		Administration -> Management
+	
+	* Support for wireless authentication via a Radius Server.
+		"WPA Radius" : you have to authenticate against the RADIUS server after a successful login to the WLAN (using WPA-PSK).
+		"Radius"     : "WEP Radius".
+	
+	* Multiple (2) PPPoE connections support.
+	
+	* Wan mac adress Cloning (only with PPPoE).
+		Setup -> MAC Address Clone.
+	
+	* Fix for Windows Vista tcp scaling.
+
+	* Added optimizations to network for better P2P and less memory footprint.
+	
+	* Router act as a NFS client.
+	  You can mount a NFS shared folder at boot. Mount point is /opt/. 
+		Configuration in Administration->Utility
+	
+	* Time is now synchronized using (a standard) ntp daemeon called openntpd,  updated time zones.
+
+	* Fixed bug of time "not available" when qos is enabled.
+	
+	* Added more console utilites; "mtd" used to flash independently root fs and kernel.
+	
+	* DSL stats in Status -> DSL Connection:
+		DSLAM Chipset Brand
+		# of failed trainings
+		DSP Datapump version
+	
+	* Free ram memory showed in Status.
+	
+	* Fixed traceroute issues.
+		
+	* Fixed snmp issue.
+	
+	* Added support for HG200 AnnexA/B.
+
+	* Fixed disconnection issues ppp-lcp ( thnx johnathana).
+	
+	* Latest DSL DSP Firmware 7.04 from Texas Instrument for Annex A/B.
+
+            
+                   
+Version 0.1:
+	
+	* Added the Admnistration -> Utility page for utilities. (format partition, private key, ...).
+	
+	* You can tell sshd to listen on a user defined port.
+	
+	* Uptime of router showed in the "Status" page
+	
+	* File system is now compressed with Squashfs 3.1-r2
+	
+	* Dnsmasq 2.22, we hope no more dns problems...
+	
+	* Fix to firmware upgrade via http, (it seems that) the rw partition is no longer erased.
+	
+	* You can specify to run a  custom script at boot.
+		
+	* Static DHCP (Setup -> Static DHCP)
+	
+	* Fixed the bug of button "DHCP Client Table" always disabled in Status_Lan.asp
+	
+	* httpd speed improved up to 35%!
+	
+	* Fixed bug with web interface static route management
+	
+	* Added wan uptime in the "Status" page
+	
+	
+		Thanks JohnAthana:
+		
+	* Fixed bug of Internet Led stop blinking after heavy download sessions 
+             
+
+
+
+Version #4:
+
+	* Ssh server, ssh client and scp
+	
+	* Rw partition can be created from web interface. Note that it is erased after
+	every upgrade.
+	
+	* Changed ntp servers. NTP servers are stored in nvram. To use new ntp servers, you have to
+	reset your router and re-insert all the settings by hand.
+
+
+
+Version #3:
+
+	* Last version before uploading sources to a SVN server.
+
+	* Firmware compiled from the latest available sources, 1.01.11
+	
+	* Busybox package upgraded from 0.6 to 1.2.1 
+	(busybox incorporate numerous unix utilities in a single small executable)
+	
+	* Added in the busybox package (only from command line):
+	   -Utilities: tar, dd, vi, grep, top
+	   -FS & Devices mngmt: mkfs-minix, mount, umount
+	   -net: etherwake
+	
+	* Support for minix fs in the kernel. Now is possible to create and use a rw
+	  partition of 128K. Checkout the guide on howto use it.
+
+
+Version #2:
+
+
+	*Added in the busybox package:
+		-netcat
+		-uptime
+		-vi
+	   this commands are atm available only from command line (telnet).
+
+	*Added new DSP7 drivers for adsl. They need to be tested.
+
+	*Added Safari MacOSX compatibility to the web interface. 
+	
+	
+
+
+Version #1: INITIAL RELEASE
+	
+	*Added telnet access. It's possible that telnet is enabled by
+	default. You can enable/disable it under 
+	http://router_ip/Management.asp .
+	The login for telnet is the same of the web interface.
+
+
+	*Added page http://router_ip/ProcfsInfo.html , showing info
+	 about the cpu (for sperimental purposes).
